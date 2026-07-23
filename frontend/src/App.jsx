@@ -338,11 +338,11 @@ export default function ReviewAuthenticityScanner() {
               <div className="min-w-0">
                 <h2 className="text-lg font-serif font-semibold text-slate-900 truncate">{place.name}</h2>
                 <p className="text-sm text-slate-500">{place.address}</p>
-                {place.editorialSummary && <p className="text-xs text-slate-400 mt-1.5 italic">{place.editorialSummary}</p>}
+                {place.editorialSummary && <p className="text-xs text-slate-500 mt-1.5 italic">{place.editorialSummary}</p>}
               </div>
               <div className="text-right shrink-0 ml-4">
                 <p className="text-xl font-mono font-semibold text-slate-900">{place.rating ?? "—"}★</p>
-                <p className="text-xs text-slate-400">{(place.userRatingCount ?? 0).toLocaleString()} ratings</p>
+                <p className="text-xs text-slate-500">{(place.userRatingCount ?? 0).toLocaleString()} ratings</p>
               </div>
             </div>
 
@@ -363,14 +363,14 @@ export default function ReviewAuthenticityScanner() {
                       <p className={`text-center text-xs font-semibold mt-2 ${combinedVerdict.text}`}>{combinedVerdict.label}</p>
                     </div>
                   )}
-                  <div className="flex-1 w-full grid grid-cols-2 gap-3">
+                  <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <ScoreCard label="Heuristic signal" score={heuristic?.score} sub={verdict(heuristic?.score ?? 0).label} />
                     <ScoreCard label="AI read" score={ai?.score} sub={ai?.failed ? "Unavailable" : verdict(ai?.score ?? 0).label} />
                   </div>
                 </div>
 
                 <div className="mt-3 space-y-1.5">
-                  {result?.cached && <p className="text-xs text-slate-400">Served from cache — no fresh API calls made for this lookup.</p>}
+                  {result?.cached && <p className="text-xs text-slate-500">Served from cache — no fresh API calls made for this lookup.</p>}
                   {place.userRatingCount > 0 &&
                     (() => {
                       const pct = (reviews.length / place.userRatingCount) * 100;
@@ -416,10 +416,10 @@ export default function ReviewAuthenticityScanner() {
                 )}
 
                 <div className="mt-6">
-                  <button onClick={() => setReviewsExpanded((s) => !s)} className="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500 font-semibold mb-1">
+                  <button onClick={() => setReviewsExpanded((s) => !s)} className="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500 font-semibold py-1.5 -mx-1 px-1 mb-1">
                     Reviews examined ({reviews.length}) {reviewsExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                   </button>
-                  <p className="text-xs text-slate-400 mb-3">Of {(place.userRatingCount ?? 0).toLocaleString()} total ratings on Google — official 5-review cap.</p>
+                  <p className="text-xs text-slate-500 mb-3">Of {(place.userRatingCount ?? 0).toLocaleString()} total ratings on Google — official 5-review cap.</p>
                   {reviewsExpanded && (
                     <div className="space-y-2.5">
                       {reviews.slice(0, reviewDisplayLimit).map((r, i) => {
@@ -428,12 +428,12 @@ export default function ReviewAuthenticityScanner() {
                         const flagged = hFlag?.dup || hFlag?.generic || hFlag?.short || aiFlagged;
                         return (
                           <div key={i} className={`border rounded-xl p-4 shadow-sm ${flagged ? "border-rose-200 bg-rose-50/60" : "border-slate-200 bg-white"}`}>
-                            <div className="flex items-center justify-between text-xs text-slate-400 mb-1.5">
-                              <span className="font-medium text-slate-600">
+                            <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-xs text-slate-500 mb-1.5">
+                              <span className="font-medium text-slate-600 min-w-0 truncate">
                                 {r.author} · <span className="text-amber-500">{"★".repeat(Math.max(0, r.rating || 0))}</span>
                                 {"☆".repeat(Math.max(0, 5 - (r.rating || 0)))}
                               </span>
-                              <span>{r.relativeTime}</span>
+                              <span className="shrink-0">{r.relativeTime}</span>
                             </div>
                             <p className="text-sm text-slate-800 leading-relaxed">{r.text || <em className="text-slate-400">No written text</em>}</p>
                             {flagged && (
@@ -448,7 +448,7 @@ export default function ReviewAuthenticityScanner() {
                         );
                       })}
                       {reviews.length > reviewDisplayLimit && (
-                        <button onClick={() => setReviewDisplayLimit(reviews.length)} className="text-xs font-semibold text-amber-600 underline">
+                        <button onClick={() => setReviewDisplayLimit(reviews.length)} className="text-xs font-semibold text-amber-600 underline py-2 px-1 -mx-1">
                           Show all {reviews.length} reviews
                         </button>
                       )}

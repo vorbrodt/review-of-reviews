@@ -1,0 +1,11 @@
+# Copy this file to .dev.vars (same folder) and fill in real values.
+# .dev.vars is gitignored and is only ever read by local `wrangler dev` — it
+# is never uploaded. Real deployment secrets are set separately later via
+# `npx wrangler secret put GOOGLE_SERVER_KEY` etc.
+
+# A Google Maps API key restricted to Places API (New) only, with NO HTTP
+# referrer restriction (fine — this one never reaches a browser).
+GOOGLE_SERVER_KEY=
+
+# From console.anthropic.com
+ANTHROPIC_API_KEY=

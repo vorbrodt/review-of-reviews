@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Local secrets — never commit these
+.env
+.dev.vars
+
+# Build output
+dist/
+.wrangler/
+
+# Editor/OS cruft
+.DS_Store
+*.log
